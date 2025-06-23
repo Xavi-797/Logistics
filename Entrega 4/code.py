@@ -29,15 +29,19 @@ for k, v in archivos.items():
 
 # ----------- Conjuntos -----------
 def extraer_conjuntos(df):
+    """Esta funcion extrae los conjuntos de los archivos"""
     P = df["suppliers"]["SupplierID"].dropna().unique().tolist()
     M = df["simple_products"]["SimpleProductID"].dropna().unique().tolist()
     B = df["bundles"]["BundleID"].dropna().unique().tolist()
     I = df["receptions"]["ReceptionID"].dropna().unique().tolist()
     F = df["plants"]["PlantID"].dropna().unique().tolist()
-    T = [col.replace("TransportationCostPerUnit", "") for col in df["multimodal_transport"].columns if "TransportationCostPerUnit" in col]
+    T = [col.replace("TransportationCostPerUnit", "")
+        for col in df["multimodal_transport"].columns 
+            if "TransportationCostPerUnit" in col]
     return P, M, B, I, F, T
 
 P, M, B, I, F, T = extraer_conjuntos(dataframes)
+
 
 # ----------- Parámetros -----------
 def construir_parametros(df):
@@ -47,10 +51,13 @@ def construir_parametros(df):
                for _, r in df["suppliers"].iterrows()}
     CEnv = {(r["SupplierID"], r["ReceptionID"]): r["TransportationCostPerUnit"]
             for _, r in df["route_supplier"].iterrows()}
-    Comp_mt = {(r["SimpleProductID"], t): int(r["IsAutomaticCompatible"]) if t == "Automatic" else 1
+    Comp_mt = {(r["SimpleProductID"], t): int(r["IsAutomaticCompatible"]) 
+        if t == "Automatic" else 1
                for _, r in df["simple_products"].iterrows() for t in T}
-    Comp_bt = {(r["BundleID"], t): int(r["IsAutomaticCompatible"]) if t == "Automatic" else 1
-               for _, r in df["bundles"].iterrows() for t in T}
+    Comp_bt = {(r["BundleID"], t): int(r["IsAutomaticCompatible"]) 
+        if t == "Automatic" 
+        else 1
+            for _, r in df["bundles"].iterrows() for t in T}
     B_prop = {(r["BundleID"], r["SimpleProductID"]): r["UnitsInBundle"]
               for _, r in df["simple_per_bundle"].iterrows()}
     
@@ -75,10 +82,12 @@ def construir_parametros(df):
                    for _, r in df["receptions"].iterrows() for t in ["Automatic", "Manual"]}
     CManiPlanta = {(r["PlantID"], t): r[f"PlantHandlingCostPerUnit{t}"]
                    for _, r in df["plants"].iterrows() for t in ["Automatic", "Manual"]}
-    
+
     return CAdq, CapProv, CEnv, Comp_mt, Comp_bt, B_prop, D_raw, Reg, alpha, CST, Imp, CManiIntake, CManiPlanta
 
+
 CAdq, CapProv, CEnv, Comp_mt, Comp_bt, B_prop, D_raw, Reg, alpha, CST, Imp, CManiIntake, CManiPlanta = construir_parametros(dataframes)
+
 
 # ----------- Filtrar demanda válida -----------
 D = {k: v for k, v in D_raw.items() if k[0] in F and k[1] in M}
@@ -94,7 +103,8 @@ model = LpProblem("Modelo_Logistico", LpMinimize)
 MVAL = 1e6
 delta = 10
 
-Q = {(m, p, i): LpVariable(f"Q_{m}_{p}_{i}", lowBound=0) for m in M for p in P for i in I}
+Q = {(m, p, i): LpVariable(f"Q_{m}_{p}_{i}", lowBound=0) 
+    for m in M for p in P for i in I}
 QB = {(b, p, i): LpVariable(f"QB_{b}_{p}_{i}", lowBound=0) for b in B for p in P for i in I}
 X = {(m, i, f, t): LpVariable(f"X_{m}_{i}_{f}_{t}", lowBound=0) for m in M for i in I for f in F for t in T}
 XB = {(b, i, f, t): LpVariable(f"XB_{b}_{i}_{f}_{t}", lowBound=0) for b in B for i in I for f in F for t in T}
