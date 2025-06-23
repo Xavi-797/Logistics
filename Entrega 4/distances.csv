@@ -1,0 +1,5 @@
+PlantID;ReceptionID;DistanceKilometers
+Plant001;Reception001;39
+Plant001;Reception002;25
+Plant002;Reception001;28
+Plant002;Reception002;34

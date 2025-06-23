@@ -1,0 +1,3 @@
+OrderID;PlantID;SimpleProductID;NumSimpleProductsOrdered
+Order001;Plant001;SimpleProduct001;11
+Order002;Plant001;SimpleProduct001;15
