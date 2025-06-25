@@ -1,2 +1,2 @@
 ReceptionID;PlantID;TransportationCostPerUnitAutomatic;TransportationCostPerUnitManual;TransportationCostPerUnitPremium;HasHighway;HighwayTaxPerWeightKilogram
-R1;PL1;5;10;50;0;0
+Reception001;Plant001;1;2;3;0;0

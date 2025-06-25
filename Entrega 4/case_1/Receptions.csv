@@ -1,2 +1,2 @@
 ReceptionID;RegionID;ReceptionMaxNumOfUnitsAutomatic;ReceptionMaxTotalWeightAutomatic;ReceptionMaxNumOfUnitsManual;ReceptionMaxTotalWeightManual;ReceptionHandlingCostPerUnitAutomatic;ReceptionHandlingCostPerUnitManual;IsAutomaticCompatible
-R1;RegionA;10;100;10;100;2;2;1
+Reception001;RegionX;100;1000;100;1000;3;5;1

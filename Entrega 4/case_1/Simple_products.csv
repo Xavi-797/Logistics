@@ -1,2 +1,3 @@
 SimpleProductID;IsAutomaticCompatible;UnitWeightKilogram
-P1;0;10
+SimpleProduct001;1;10
+SimpleProduct002;1;5

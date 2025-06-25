@@ -1,0 +1,5 @@
+BundleID;SimpleProductID;UnitsInBundle
+Bundle001;SimpleProduct001;12
+Bundle001;SimpleProduct002;3
+Bundle002;SimpleProduct001;8
+Bundle002;SimpleProduct002;9

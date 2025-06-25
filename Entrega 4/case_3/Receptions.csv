@@ -1,0 +1,2 @@
+reception_id;reception_region;ReceptionMaxNumOfUnitsAutomatic;ReceptionMaxTotalWeightAutomatic;ReceptionMaxNumOfUnitsManual;ReceptionMaxTotalWeightManual;cm_intake_auto;cm_intake_manual;is_auto_compat
+R1;RegionA;20;200;20;200;1;1;1

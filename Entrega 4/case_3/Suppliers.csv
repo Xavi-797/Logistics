@@ -1,0 +1,3 @@
+supplier_id;supplier_region;product_id;availability;unit_cost
+S1;RegionA;B1;5;30
+S2;RegionA;B2;3;32
